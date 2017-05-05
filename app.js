@@ -79,24 +79,34 @@ function algoGenetique(){
 	
 };
 
+function callAlgoTaboo(){
+	console.time('algoTaboo');
+	algoTaboo(); 
+	console.timeEnd('algoTaboo');
+};
+
 function algoTaboo(nbPermut){
 	//TEST
-	nbPermut = 2000;
+	nbPermut = 5000;
 	//
-	var sizeTaboo = 3;
+	var sizeTaboo = parseInt($("#tabooSize").val());
 	var arrayTaboo = new LinkedList();
 	var bestAnswer = [];
-	var bestFitness = 100;
-	var fitness =  bestFitness = getFitness(data);
+	var bestFitness;
 	var iteration = 0;
-	if(data.length !== 0){
-		generateBoard(parseInt($("#size").val()));
-	}
+	generateBoard(parseInt($("#size").val()));
 
-	while(iteration < nbPermut || bestFitness !== 0){
+	var fitness =  bestFitness = getFitness(data);
+	while(iteration < nbPermut && bestFitness !== 0){
 		iteration++;
-		var response = bestVoisinTaboo(data, arrayTaboo);
-		data = response[1];
+		var response;
+		if(data.length<=8){
+			response =  bestVoisinTaboo(data, arrayTaboo);
+		} else {
+			response = bestRandomVoisinTaboo(data, arrayTaboo);
+		}
+		
+		data = response[0];
 		if(response[1] < bestFitness){
 			bestAnswer = response[0];
 			bestFitness =  response[1];
@@ -130,7 +140,7 @@ function isTaboo(arrayTaboo, permut){
 function bestVoisinTaboo(data, taboo){
 	var bestVoisin = [];
 	var fitness;
-	var bestFitness = 100;
+	var bestFitness;
 	var permut = [];
 	for(var i=0; i<data.length; i++){
 		for(var j= i+1; j<data.length; j++){
@@ -139,7 +149,7 @@ function bestVoisinTaboo(data, taboo){
 				arrayTemp[i] = data[j];
 				arrayTemp[j] = data[i];
 				fitness = getFitness(arrayTemp);
-				if(fitness < bestFitness){
+				if(bestFitness=== undefined || fitness < bestFitness){
 					bestFitness = fitness;
 					bestVoisin = arrayTemp.slice();
 					permut = [i, j];
@@ -149,3 +159,27 @@ function bestVoisinTaboo(data, taboo){
 	}
 	return [bestVoisin, bestFitness, permut];
 }
+
+function bestRandomVoisinTaboo(data, taboo){
+	var rand1, rand2;
+	var permut = [];
+	var bestFitness;
+	var bestVoisin;
+	for (var i = 0; i < 50; i++) {
+		var arrayTemp = data.slice();
+		rand1 = Math.floor(Math.random()* data.length);
+		do{
+			rand2 = Math.floor(Math.random()* data.length);
+		} while(rand1 === rand2);
+
+		arrayTemp[rand1] = data[rand2];
+		arrayTemp[rand2] = data[rand1];
+		var fitness = getFitness(arrayTemp);
+		if(bestFitness=== undefined || fitness < bestFitness){
+			bestFitness = fitness;
+			bestVoisin = arrayTemp.slice();
+			permut = [rand1, rand2];
+		}
+	}
+	return [bestVoisin, bestFitness, permut];
+};
