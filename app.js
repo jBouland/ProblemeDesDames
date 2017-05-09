@@ -138,10 +138,6 @@ function updateFitness(_data, _fitness, index_1, value_1, index_2, value_2){
 		return fitness;
 	}
 
-	function algoGenetique(){
-
-	};
-
 	function callAlgoTaboo(){
 		console.time('algoTaboo');
 		algoTaboo(); 
@@ -245,4 +241,52 @@ function bestRandomVoisinTaboo(data, taboo){
 		}
 	}
 	return [bestVoisin, bestFitness, permut];
+};
+
+
+function callAlgoGenetique(){
+
+	console.time('algoGenetique');
+	algoGenetique(); 
+	console.timeEnd('algoGenetique');
+};
+
+function algoGenetique(){
+	var populationSize = $("#population").val();
+	var population = [];
+
+	reproduction(population);
+
+};
+
+function reproduction(population){
+	var values = [];
+	for (var i = 0; i < populationSize; i++) {
+		values[i] = i + 1;
+	}
+
+
+	for (var i = 0; i < populationSize ; i++) {
+		population[i] = generateRandomBoard(values.slice());
+	}
+
+
+
+	if(Math.random() < 0.5){
+		croisement();
+	}
+	else{
+		mutation();
+	}
+}
+
+
+function generateRandomBoard(values){
+
+	for (var i = 0; i < size; i++) {
+		var elementIndex = Math.floor(Math.random()* values.length);
+		data[i] = values[elementIndex];
+		values.splice(elementIndex, 1);
+	}
+
 };
