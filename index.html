@@ -3,26 +3,40 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	 <title>MétaHeuristique</title>
-<script src="app.js"></script>
-<script src="node_modules/jquery/dist/jquery.min.js"></script>
+	<title>MétaHeuristique</title>
+	<script src="linked-list.js"></script>
+	<script src="app.js"></script>
+	<script src="node_modules/jquery/dist/jquery.min.js"></script>
 
 
 </head>
 <body>
-	Metaheuristic
+
+	<div>
+		<h1>Projet - Problème des n-dames</h1>
+	</div>
+	Nombre de dames
 	<input type="number" id="size" value="500">
+	<br/>
 	temperature
 	<input type="number" id="temperature" value="500">
+	<br/>
 	n1
-	<input type="number" id="n1" value="150">
+	<input type="number" id="n1" value="250">
+	<br/>
 	n2
-	<input type="number" id="n2" value="150">
+	<input type="number" id="n2" value="250">
+	<br/>
 	micron
-	<input type="decimal" id="micron" value="0.9">
+	<input type="decimal" id="micron" value="0">
+	<br/>
+	Taille de la liste Tabou
+	<input type="number" id="tabooSize">
+	<br/>
+	<br/>
  <button onclick="callAlgoRecuitSimule()">Recuit simulé</button> 
-  <button onclick="algoTaboo()">Tabou</button> 
-   <button onclick="algoGenetique()">Génétique</button> 
+  <button onclick="callAlgoTaboo()">Tabou</button> 
+   <button onclick="algoGenetique()">Génétique</button>
 </body>
 
 </html>
