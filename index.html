@@ -3,40 +3,90 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>MétaHeuristique</title>
+	<title>Projet des N-Dames</title>
 	<script src="linked-list.js"></script>
 	<script src="app.js"></script>
 	<script src="node_modules/jquery/dist/jquery.min.js"></script>
-
-
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
 	<div>
-		<h1>Projet - Problème des n-dames</h1>
-	</div>
-	Nombre de dames
-	<input type="number" id="size" value="500">
-	<br/>
-	temperature
-	<input type="number" id="temperature" value="500">
-	<br/>
-	n1
-	<input type="number" id="n1" value="250">
-	<br/>
-	n2
-	<input type="number" id="n2" value="250">
-	<br/>
-	micron
-	<input type="decimal" id="micron" value="0">
-	<br/>
-	Taille de la liste Tabou
-	<input type="number" id="tabooSize">
-	<br/>
-	<br/>
- <button onclick="callAlgoRecuitSimule()">Recuit simulé</button> 
-  <button onclick="callAlgoTaboo()">Tabou</button> 
-   <button onclick="algoGenetique()">Génétique</button>
-</body>
+		<h1>Projet - Problème des n-dames  <img class="imgQueen" src="images/queen.jpg"> </h1>
+		<br/>	
+		<p>Ce projet propose de résoudre le problème des n-dames en utilisant différents algorithmes tels que le recuit simulé, la méthode de la liste tabou et l'algorithme génétique.
+			<br/>
+		Le problème des n-dames consiste à placer n dames sur un échiquier de taille NxN sans qu'aucune dame n'en menace une autre, en suivant les règles de menaces des échecs.</p>
 
-</html>
+		
+		<p>
+			<img class="imgWarning" src="images/warning.png"> 
+			Nous recommandons d'utiliser Google Chrome pour tester les échiquiers de taille importante.
+		</p>	
+		
+		<h3>Situation initiale</h3>
+		<p>Pour résoudre ce problème, nous avons décidé de placer par défaut une dame sur chaque colonne en suivant la diagonale. On applique ensuite l'algorithme voulu avec les paramètres définis.</p>
+	</div>
+	<div class="paramGlobaux">
+		<h3>Nombre de dames</h3>
+	</div>
+	<input type="number" id="size" value="500">
+	<div class="algoArea">
+		<h3>Recuit simulé</h2>
+			<div class="param">
+				Température
+				<input type="number" id="temperature" value="500">
+				<br/>
+				n1
+				<input type="number" id="n1" value="250">
+				<br/>
+				n2
+				<input type="number" id="n2" value="250">
+				<br/>
+				micron
+				<input type="decimal" id="micron" value="0">
+				<br/>
+				<br/>
+				<button onclick="callAlgoRecuitSimule()">Recuit simulé</button> 
+				<div class="sk-folding-cube spinnerRecuit">
+					<div class="sk-cube1 sk-cube"></div>
+					<div class="sk-cube2 sk-cube"></div>
+					<div class="sk-cube4 sk-cube"></div>
+					<div class="sk-cube3 sk-cube"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="algoArea">
+			<h3>Méthode Tabou</h3>
+			<div class="param">
+				Taille de la liste Tabou
+				<input type="number" id="tabooSize">
+				<br/>
+				<button onclick="callAlgoTaboo()">Tabou</button>
+				<div class="sk-folding-cube spinnerTabou">
+					<div class="sk-cube1 sk-cube"></div>
+					<div class="sk-cube2 sk-cube"></div>
+					<div class="sk-cube4 sk-cube"></div>
+					<div class="sk-cube3 sk-cube"></div>
+				</div> 
+			</div>
+		</div>
+
+		<div class="algoArea">
+			<h3>Méthode génétique</h3>
+			<div class="param">
+			</div>
+			<button onclick="algoGenetique()">Génétique</button>
+		</div>		
+		<br/>
+		<div class="algoArea">
+			<h3>Méthode du moindre conflit</h3>
+			<div class="param">
+			</div>
+			<button onclick="callAlgoMoindreConflit()">Moindre Conflit</button>
+		</div>	
+
+
+	</body>
+
+	</html>
