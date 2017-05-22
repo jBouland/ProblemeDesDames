@@ -1,2 +1,2 @@
 # ProblemeDesDames
-This application JS implements metaheuristic method to solve the N-queen problem
+This project implements metaheuristic methods in javascript to solve the N-queen problem.
