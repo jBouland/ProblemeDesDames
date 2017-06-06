@@ -1,0 +1,45 @@
+body{
+  font-family: 'Lato', sans-serif;
+  margin: 50px 15% 20px 15%;
+  text-align: justify;
+  line-height: 1.5;
+}
+
+button{
+  min-height: 28px;
+}
+
+.imgQueen{
+  display: inline-block;
+  position: relative;
+  top: 10px;
+  height: 64px;
+}
+.imgWarning{
+  display: inline-block;
+  position: relative;
+  top: 5px;
+  height: 24px;
+}
+
+h1{
+  text-align: center;
+}
+
+h4{
+  color: #808080;
+}
+
+.resultTable td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.resultTable td:first-child {
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+}
