@@ -8,6 +8,7 @@
 	<script src="app.js"></script>
 	<script src="node_modules/jquery/dist/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
 </head>
 <body>
 	<div>
@@ -15,23 +16,23 @@
 		<br/>	
 		<p>Ce projet propose de résoudre le problème des n-dames en utilisant différents algorithmes tels que le recuit simulé, la méthode de la liste tabou et l'algorithme génétique.
 			<br/>
-		Le problème des n-dames consiste à placer n dames sur un échiquier de taille NxN sans qu'aucune dame n'en menace une autre, en suivant les règles de menaces des échecs.</p>
+			Le problème des n-dames consiste à placer n dames sur un échiquier de taille NxN sans qu'aucune dame n'en menace une autre, en suivant les règles de menaces des échecs.</p>
 
-		
-		<p>
-			<img class="imgWarning" src="images/warning.png"> 
-			Nous recommandons d'utiliser Google Chrome pour tester les échiquiers de taille importante.
-		</p>	
-		
-		<h3>Situation initiale</h3>
-		<p>Pour résoudre ce problème, nous avons décidé de placer par défaut une dame sur chaque colonne en suivant la diagonale. On applique ensuite l'algorithme voulu avec les paramètres définis.</p>
-	</div>
-	<div class="paramGlobaux">
-		<h3>Nombre de dames</h3>
-	</div>
-	<input type="number" id="size" value="500">
-	<div class="algoArea">
-		<h2>Recuit simulé</h2>
+
+			<p>
+				<img class="imgWarning" src="images/warning.png"> 
+				Nous recommandons d'utiliser Google Chrome pour tester les échiquiers de taille importante.
+			</p>	
+
+			<h3>Situation initiale</h3>
+			<p>Pour résoudre ce problème, nous avons décidé de placer par défaut une dame sur chaque colonne en suivant la diagonale. On applique ensuite l'algorithme voulu avec les paramètres définis.</p>
+		</div>
+		<div class="paramGlobaux">
+			<h3>Nombre de dames</h3>
+		</div>
+		<input type="number" id="size" value="500">
+		<div class="algoArea">
+			<h2>Recuit simulé</h2>
 			<div class="param">
 				Température
 				<input type="number" id="temperature" value="500">
@@ -47,12 +48,6 @@
 				<br/>
 				<br/>
 				<button onclick="callAlgoRecuitSimule()">Recuit simulé</button> 
-				<div class="sk-folding-cube spinnerRecuit">
-					<div class="sk-cube1 sk-cube"></div>
-					<div class="sk-cube2 sk-cube"></div>
-					<div class="sk-cube4 sk-cube"></div>
-					<div class="sk-cube3 sk-cube"></div>
-				</div>
 			</div>
 		</div>
 
@@ -63,30 +58,69 @@
 				<input type="number" id="tabooSize">
 				<br/>
 				<button onclick="callAlgoTaboo()">Tabou</button>
-				<div class="sk-folding-cube spinnerTabou">
-					<div class="sk-cube1 sk-cube"></div>
-					<div class="sk-cube2 sk-cube"></div>
-					<div class="sk-cube4 sk-cube"></div>
-					<div class="sk-cube3 sk-cube"></div>
-				</div> 
 			</div>
-		</div>
+			<div class="result">Fitness : <span id="fitnessTaboo"></span></div>
+			<div>
+				<h4>Explications : </h4>
+				<p>La méthode liste taboue consiste à choisir la meilleure solution dans le voisinage de la solution actuelle pour améliorer la fitness progressivement. Elle implémente une liste de solutions "taboues", qui évitent de retourner sur des solutions déjà visitées. <br/> 
+					Pour ce problème, on défini une solution voisine comme une solution qui demande une seule permutation de dames. Malheuresement, la méthode de la liste taboue n'est pas adaptée à la résolution de ce problème. En effet, la complexité du calcul de fitness d'une solution est de l'ordre de n*log(n) pour chaque dame. La recherche du meilleur voisin est donc d'une complexité de <b>n² *  log(n)</b>, et ceux, à chaque itération de l'algorithme. 
+					Lorsqu'on augmente la taille de l'échiquier, la durée de l'algorithme augmente donc de manière exponentielle.<br>
+					Pour éviter ce problème et obtenir un résultat dans un temps acceptable, nous avons limité le choix du meilleur voisin à un échantillon réduit pour les tailles d'échiquier les plus importantes.</p></div>
+					<table class="resultTable">
+						<tr>
+							<th>Paramètres (taille échiquier/taille liste taboue)</th>
+							<th>Fitness trouvée</th>
+							<th>Durée</th>
+							<th>Itérations</th>
+						</tr>
+						<tr>
+							<td>10/10</td>
+							<td>0</td>
+							<td>5.86ms</td>
+							<td>22</td>
+						</tr>
+						<tr>
+							<td>50/10</td>
+							<td>0</td>
+							<td>40.43ms</td>
+							<td>173</td>
+						</tr>
+						<tr>
+							<td>50/0</td>
+							<td>0</td>
+							<td>56.65ms</td>
+							<td>287</td>
+						</tr>
+						<tr>
+							<td>200/10</td>
+							<td>5</td>
+							<td>12.61s</td>
+							<td>5000 (cap atteint)</td>
+						</tr>
+						<tr>
+							<td>500/10</td>
+							<td>16</td>
+							<td>80s</td>
+							<td>5000 (cap atteint)</td>
+						</tr>
+					</table>
+				</div>
 
-		<div class="algoArea">
-			<h3>Méthode génétique</h3>
-			<div class="param">
-			</div>
-			<button onclick="algoGenetique()">Génétique</button>
-		</div>		
-		<br/>
-		<div class="algoArea">
-			<h3>Méthode du moindre conflit</h3>
-			<div class="param">
-			</div>
-			<button onclick="callAlgoMoindreConflit()">Moindre Conflit</button>
-		</div>	
+				<div class="algoArea">
+					<h3>Méthode génétique</h3>
+					<div class="param">
+					</div>
+					<button onclick="algoGenetique()">Génétique</button>
+				</div>		
+				<br/>
+				<div class="algoArea">
+					<h3>Méthode du moindre conflit</h3>
+					<div class="param">
+					</div>
+					<button onclick="callAlgoMoindreConflit()">Moindre Conflit</button>
+				</div>	
 
 
-	</body>
+			</body>
 
-	</html>
+			</html>
