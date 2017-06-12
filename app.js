@@ -3,6 +3,7 @@ var bestFitness;
 var currentFitness;
 
 function generateBoard(size){
+	data = [];
 	for (var i = 0; i < size; i++) {
 		data[i] = i + 1;
 	}
