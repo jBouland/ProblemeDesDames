@@ -9,11 +9,6 @@ function generateBoard(size){
 
 };
 
-function checkValidity(){
-
-};
-
-
 function callAlgoRecuitSimule(){
 	console.time('algoRecuitSimule');
 	algoRecuitSimule(); 
@@ -50,11 +45,12 @@ function algoRecuitSimule(){
 				data = switchColumns(data.slice(), parseInt(temperature));		
 			}
 			else{
-				console.log("Meilleur Solution Trouvée, N1:"+i+", N2:"+j);
+				console.log("Meilleur Solution Trouvée, nombre d'itérations :"+ ((i * 300) + j));
 				j = n2;
 				i = n1;
 			}
 		}
+		console.log(i + " Nouvelle temperature ! : " + micron*temperature + "au lieu de "+ temperature)
 		temperature = micron*temperature;
 	}
 	// console.log("Solution Trouvée : ");
@@ -90,7 +86,9 @@ function switchColumns(_data, temperature){
 		// console.log("nouvelle fitness - ancienne fitesse > 0");
 		var p = Math.random();
 		var x = -(_dataFitness - currentFitness) / temperature;
+		//console.log("x = " + x);
 		if(p < Math.exp(x)){
+		//console.log("Math.exp(x) = " + Math.exp(x));
 			// console.log("p < exp(x) mise à jour...");
 			currentFitness = _dataFitness;
 			return _data;
@@ -144,7 +142,7 @@ function updateFitness(_data, _fitness, index_1, value_1, index_2, value_2){
 		console.timeEnd('algoTaboo');
 	};
 
-	function algoTaboo(nbPermut){
+function algoTaboo(nbPermut){
 	//TEST
 	nbPermut = 5000;
 	//
@@ -255,38 +253,76 @@ function algoGenetique(){
 	var populationSize = $("#population").val();
 	var population = [];
 
-	reproduction(population);
+	reproduction(population, populationSize);
 
 };
 
-function reproduction(population){
+function reproduction(population, populationSizea){
 	var values = [];
 	for (var i = 0; i < populationSize; i++) {
 		values[i] = i + 1;
 	}
 
-
 	for (var i = 0; i < populationSize ; i++) {
 		population[i] = generateRandomBoard(values.slice());
+		population[i].score = getFitness(population[i]);
+		console.log("score de la population " + i + " : " + population[i].score);
 	}
 
+	newPopulation = Selection(population);
 
 
-	if(Math.random() < 0.5){
-		croisement();
+
+	if(Math.random() < 0.9){
+		croisement(population);
 	}
 	else{
-		mutation();
+		mutation(population);
 	}
 }
 
 
 function generateRandomBoard(values){
 
+	var data=[];
+
 	for (var i = 0; i < size; i++) {
 		var elementIndex = Math.floor(Math.random()* values.length);
 		data[i] = values[elementIndex];
 		values.splice(elementIndex, 1);
 	}
+	return data[i];
 
 };
+
+function croisement(population){
+	var firstrand = Math.floor((Math.random() * population.length)); 
+	var secondrand= Math.floor((Math.random() * population.length)); 
+	while(secondCol == firstCol){
+		var secondCol= Math.floor((Math.random() * population.length)); 
+	}
+
+	data = [];
+
+	for(var i = size/4; i < size / 4 * 3; i++){
+		data[i] = population[firstrand][i];
+	}
+
+	var i = 0
+	for(var j = 0; j < size /4; i++){
+		if(!data.contains( population[firstrand][i])){
+			data[i] = population[firstrand][i];
+			j++;
+		}
+	}
+
+
+	var j = size / 4 * 3;
+	for(i ; j < size; i++){
+		if(!data.contains( population[firstrand][i])){
+			data[i] = population[firstrand][i];
+			j++;
+		}
+	}
+	return data;
+}

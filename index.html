@@ -26,6 +26,10 @@
 
 			<h3>Situation initiale</h3>
 			<p>Pour résoudre ce problème, nous avons décidé de placer par défaut une dame sur chaque colonne en suivant la diagonale. On applique ensuite l'algorithme voulu avec les paramètres définis.</p>
+
+			<p>
+				La fitness est définie comme étant le nombre de dames étant en menace. Le but sera donc de minimiser la fitness et la solution de notre problème sera une solution ayant une fitness égal à 0.<br>
+			</p>
 		</div>
 		<div class="paramGlobaux">
 			<h3>Nombre de dames</h3>
@@ -49,6 +53,70 @@
 				<br/>
 				<button onclick="callAlgoRecuitSimule()">Recuit simulé</button> 
 			</div>
+						<div class="result">Fitness : <span id="fitnessTaboo"></span></div>
+			<div>
+				<h4>Explications : </h4>
+				<p>La méthode recuit simulé consiste à choisir la meilleure solution dans le voisinage de la solution actuelle pour améliorer la fitness progressivement. <br>
+
+				La température est le paramètre qui va définir l'écart de fitness accepté entre 2 solutions, ainsi elle permet de pouvoir explorer des solutions plus "lointaines" afin de ne pas se retrouver bloquer dans un minimum local.<br>
+
+				n2 est le nombre d'itérations de changement de colonnes pour la même température d'entrée.
+				n1 est le nombre de changement de température qui sera fait. Ce changement se fait en multipliant la température par le paramètre micron.<br>
+
+				Ainsi si l'on a 200 en n1 et 300 en n2. Alors on effectue 300 itérations pour 200 températures ayant évolués.<br>
+
+
+
+				la complexité du calcul de fitness d'une solution est de l'ordre de log(n). Ainsi la complexité de tout l'algorithme est de n1*n2*log(n)
+				Lorsqu'on augmente la taille de l'échiquier, la durée de l'algorithme augmente donc de manière logarithmique.<br>
+				Parfois il arrive que le recuit simulé trouve une solution optimale (fitness = 0) assez rapidement, dans ce cas, il s'arrète</p></div>
+
+
+					<table class="resultTable">
+						<tr>
+							<th>taille échiquier</th>
+							<th>Temperature</th>
+							<th>n1</th>
+							<th>n2</th>
+							<th>Micron</th>
+							<th>Fitness trouvée</th>
+							<th>Durée</th>
+							<th>Itérations</th>
+						</tr>
+						<tr>
+							<td>500</td>
+							<td>5000</td>
+							<td>250</td>
+							<td>300</td>
+							<td>0.92</td>
+							<td>0</td>
+							<td>~18 secondes</td>
+							<td>~72 600</td>
+						</tr>
+						<tr>
+							<td>10/10</td>
+							<td>10/10</td>
+							<td>10/10</td>
+							<td>10/10</td>
+							<td>10/10</td>
+							<td>10/10</td>
+							<td>10/10</td>
+							<td>10/10</td>
+						</tr>
+						<tr>
+							<td>10/10</td>
+							<td>10/10</td>
+							<td>10/10</td>
+							<td>10/10</td>
+							<td>10/10</td>
+							<td>10/10</td>
+							<td>10/10</td>
+							<td>10/10</td>
+						</tr>
+					</table>
+				</div>
+
+
 		</div>
 
 		<div class="algoArea">
