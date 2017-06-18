@@ -21,15 +21,57 @@
 
 			<p>
 				<img class="imgWarning" src="images/warning.png"> 
-				Nous recommandons d'utiliser Google Chrome pour tester les échiquiers de taille importante.
+				Nous recommandons d'utiliser Google Chrome pour tester les échiquiers de taille importante. Les résultats des tests sont lisibles dans la console javascript de votre navigateur.
 			</p>	
 
 			<h3>Situation initiale</h3>
-			<p>Pour résoudre ce problème, nous avons décidé de placer par défaut une dame sur chaque colonne en suivant la diagonale. On applique ensuite l'algorithme voulu avec les paramètres définis.</p>
 
-			<p>
-				La fitness est définie comme étant le nombre de dames étant en menace. Le but sera donc de minimiser la fitness et la solution de notre problème sera une solution ayant une fitness égal à 0.<br>
-			</p>
+			<p>Pour résoudre ce problème, nous avons décidé de placer par défaut une dame sur chaque colonne en suivant la diagonale selon le modèle suivant. </p>
+
+			<table class="exempleTable">
+						<tr>
+							<td><img class="smallPicture" src="images/queenLogo.png"/></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><img class="smallPicture" src="images/queenLogo.png"/></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td><img class="smallPicture" src="images/queenLogo.png"/></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td><img class="smallPicture" src="images/queenLogo.png"/></td>
+						</tr>
+					</table>
+
+					<p>On applique ensuite l'algorithme voulu avec les paramètres définis.</p>
+					<h4>Modélisation du problème : </h4>
+					<p>Une solution est définie comme une liste de numéro de colonne pour chaque dame. Chaque dame est représentée par son index. L'échiquier précédent correspond par exemple à la solution [0, 1, 2, 3].</p>
+					<h4>Calcul de la fitness : </h4>
+			<p>La fitness est calculée de la manière suivante :</p>
+			<div class="codeZone">				
+				<p class="tab1">Pour chaque dame :</p>
+				<p class="tab2">Pour chaque dame non explorée à la boucle 1 :</p>
+				<p class="tab3">Si il y a un conflit : Ajouter 1 à la fitness </p>
+				<p class="tab2">Fin pour</p>
+				<p class="tab1">Fin pour</p>
+			</div>
+			<p> L'échiquier précédent par exemple a une fitness de 6. (3 + 2 + 1)</p>
+			<br/>
+			<h4>Voisinage : </h4>
+			<p>Le voisin d'une solution est définie comme une permutation du numéro de colonne entre deux dames. </p>
+			<p>Par exemple, pour l'échiquier précédent représenté par la solution [0, 1, 2, 3] : <br/>[1, 0, 2, 3] est une solution, [0,3, 2, 1] également. <br/>[1, 3, 2, 0] n'en est pas un.</p>
 		</div>
 		<div class="paramGlobaux">
 			<h3>Nombre de dames</h3>
@@ -53,7 +95,7 @@
 				<br/>
 				<button onclick="callAlgoRecuitSimule()">Recuit simulé</button> 
 			</div>
-						<div class="result">Fitness : <span id="fitnessTaboo"></span></div>
+						<div class="result">Résultat : <span id="result-recuit"></span></div>
 			<div>
 				<h4>Explications : </h4>
 				<p>La méthode recuit simulé consiste à choisir la meilleure solution dans le voisinage de la solution actuelle pour améliorer la fitness progressivement. <br>
@@ -79,9 +121,76 @@
 							<th>n1</th>
 							<th>n2</th>
 							<th>Micron</th>
-							<th>Fitness trouvée</th>
-							<th>Durée</th>
-							<th>Itérations</th>
+							<th>Fitness moyenne trouvée</th>
+							<th>Pourcentage de réussite</th>
+							<th>Durée moyenne</th>
+							<th>Nombre d'itérations moyen</th>
+						</tr>
+						<tr>
+							<td>8</td>
+							<td>10</td>
+							<td>50</td>
+							<td>50</td>
+							<td>0.93</td>
+							<td>0</td>
+							<td>100 %</td>
+							<td>~1ms</td>
+							<td>très variant (parfois ~50, d'autres ~3 000)</td>
+						</tr>
+						<tr>
+							<td>50</td>
+							<td>200</td>
+							<td>100</td>
+							<td>100</td>
+							<td>0.5</td>
+							<td>18</td>
+							<td>30 %</td>
+							<td>~35ms</td>
+							<td>~25 000</td>
+						</tr>
+						<tr>
+							<td>50</td>
+							<td>200</td>
+							<td>100</td>
+							<td>100</td>
+							<td>0.8</td>
+							<td>0</td>
+							<td>100 %</td>
+							<td>~35ms</td>
+							<td>~25 000</td>
+						</tr>
+						<tr>
+							<td>100</td>
+							<td>200</td>
+							<td>100</td>
+							<td>100</td>
+							<td>0.9</td>
+							<td>1</td>
+							<td>40 %</td>
+							<td>~125ms</td>
+							<td>~25 000</td>
+						</tr>
+						<tr>
+							<td>100</td>
+							<td>200</td>
+							<td>130</td>
+							<td>100</td>
+							<td>0.9</td>
+							<td>0.1</td>
+							<td>90 %</td>
+							<td>~140ms</td>
+							<td>~30 000</td>
+						</tr>
+						<tr>
+							<td>200</td>
+							<td>500</td>
+							<td>200</td>
+							<td>200</td>
+							<td>0.9</td>
+							<td>0</td>
+							<td>100%</td>
+							<td>~1 seconde</td>
+							<td>~40 000</td>
 						</tr>
 						<tr>
 							<td>500</td>
@@ -89,29 +198,10 @@
 							<td>250</td>
 							<td>300</td>
 							<td>0.92</td>
-							<td>0</td>
+							<td>0.1</td>
+							<td>70%</td>
 							<td>~18 secondes</td>
 							<td>~72 600</td>
-						</tr>
-						<tr>
-							<td>10/10</td>
-							<td>10/10</td>
-							<td>10/10</td>
-							<td>10/10</td>
-							<td>10/10</td>
-							<td>10/10</td>
-							<td>10/10</td>
-							<td>10/10</td>
-						</tr>
-						<tr>
-							<td>10/10</td>
-							<td>10/10</td>
-							<td>10/10</td>
-							<td>10/10</td>
-							<td>10/10</td>
-							<td>10/10</td>
-							<td>10/10</td>
-							<td>10/10</td>
 						</tr>
 					</table>
 				</div>
@@ -127,7 +217,7 @@
 				<br/>
 				<button onclick="callAlgoTaboo()">Tabou</button>
 			</div>
-			<div class="result">Fitness : <span id="fitnessTaboo"></span></div>
+			<div class="result">Résultat : <span id="resultTaboo"></span></div>
 			<div>
 				<h4>Explications : </h4>
 				<p>La méthode liste taboue consiste à choisir la meilleure solution dans le voisinage de la solution actuelle pour améliorer la fitness progressivement. Elle implémente une liste de solutions "taboues", qui évitent de retourner sur des solutions déjà visitées. <br/> 
@@ -160,6 +250,12 @@
 							<td>287</td>
 						</tr>
 						<tr>
+							<td>100/10</td>
+							<td>1</td>
+							<td>3.26s</td>
+							<td>5000 (cap atteint)</td>
+						</tr>
+						<tr>
 							<td>200/10</td>
 							<td>5</td>
 							<td>12.61s</td>
@@ -181,14 +277,6 @@
 					<button onclick="algoGenetique()">Génétique</button>
 				</div>		
 				<br/>
-				<div class="algoArea">
-					<h3>Méthode du moindre conflit</h3>
-					<div class="param">
-					</div>
-					<button onclick="callAlgoMoindreConflit()">Moindre Conflit</button>
-				</div>	
-
-
 			</body>
 
 			</html>

@@ -15,6 +15,22 @@ button{
   top: 10px;
   height: 64px;
 }
+
+.smallPicture {
+  width: 36px;
+  height: 36px;
+}
+.exempleTable td, th{
+  border: 2px solid black;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+}
+
+.exempleTable table {
+  border-collapse: collapse;
+}
+
 .imgWarning{
   display: inline-block;
   position: relative;
@@ -30,6 +46,11 @@ h4{
   color: #808080;
 }
 
+.resultTable {
+  text-align: center;
+  width: 100%;
+}
+
 .resultTable td, th {
   border: 1px solid #dddddd;
   text-align: left;
@@ -42,4 +63,20 @@ h4{
 
 table {
   border-collapse: collapse;
+}
+
+.tab1{
+  margin-left: 20px;
+}
+.tab2{
+  margin-left: 40px;
+}
+.tab3{
+  margin-left: 60px;
+}
+
+.codeZone{
+  padding: 2px;
+  background-color: #ededed;
+  border-radius: 10px;
 }

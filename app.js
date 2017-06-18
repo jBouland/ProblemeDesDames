@@ -3,6 +3,7 @@ var bestFitness;
 var currentFitness;
 
 function generateBoard(size){
+	data = [];
 	for (var i = 0; i < size; i++) {
 		data[i] = i + 1;
 	}
@@ -50,7 +51,7 @@ function algoRecuitSimule(){
 				i = n1;
 			}
 		}
-		console.log(i + " Nouvelle temperature ! : " + micron*temperature + "au lieu de "+ temperature)
+		//console.log(i + " Nouvelle temperature ! : " + micron*temperature + "au lieu de "+ temperature)
 		temperature = micron*temperature;
 	}
 	// console.log("Solution Trouvée : ");
