@@ -11,16 +11,17 @@ function generateBoard(size){
 };
 
 function callAlgoRecuitSimule(){
-	console.time('algoRecuitSimule');
+	$("#result-recuit").empty();
+
+	var start = performance.now();
+
 	algoRecuitSimule(); 
-	console.timeEnd('algoRecuitSimule');
 
-	/*
+	var end = performance.now();
 
-	Pour 500 reines : 
-	Bons paramètres : t = 500, n1 = 150, n2 = 150, micron = 0.9
+	var time = end - start;
+	$("#result-recuit").append(" Temps d'execution : "+time.toFixed(1) + "ms");
 
-	*/
 }
 
 function algoRecuitSimule(){
@@ -55,7 +56,9 @@ function algoRecuitSimule(){
 		temperature = micron*temperature;
 	}
 	// console.log("Solution Trouvée : ");
-	console.log(data, getFitness(data));
+	var fitness = getFitness(data);
+	console.log(data, fitness);
+	$("#result-recuit").append("Meilleur fitness : ", fitness);
 
 };
 
@@ -139,9 +142,18 @@ function updateFitness(_data, _fitness, index_1, value_1, index_2, value_2){
 	}
 
 	function callAlgoTaboo(){
-		console.time('algoTaboo');
+
+
+		$("#result-taboo").empty();
+
+		var start = performance.now();
+
 		algoTaboo(); 
-		console.timeEnd('algoTaboo');
+
+		var end = performance.now();
+
+		var time = end - start;
+		$("#result-taboo").append(" Temps d'execution : "+time.toFixed(1) + "ms");
 	};
 
 	function algoTaboo(nbPermut){
@@ -175,6 +187,8 @@ function updateFitness(_data, _fitness, index_1, value_1, index_2, value_2){
 			}
 		}
 	}
+
+	$("#result-taboo").append("Meilleur fitness : ", bestFitness);
 	console.log("Fitness : " + bestFitness);
 	console.log("Iterations : " + iteration);
 	console.log(bestAnswer);
@@ -246,21 +260,32 @@ function bestRandomVoisinTaboo(data, taboo){
 
 function callAlgoGenetique(){
 
-	console.time('algoGenetique');
-	algoGenetique(); 
-	console.timeEnd('algoGenetique');
+		$("#result-genetic").empty();
+
+		var start = performance.now();
+
+		algoGenetique(); 
+
+		var end = performance.now();
+
+		var time = end - start;
+		$("#result-genetic").append(" Temps d'execution : "+time.toFixed(1) + "ms");
+
 };
 
 function algoGenetique(){
 	var gameSize = $("#size").val()
+	var populationSize = $("#population").val()
+	var nbiteration = $("#nbiteration").val()
+	var probacroisement = $("#croisement").val()
 	console.log("size : ", gameSize);
 	var population = [];
 
-	reproduction(population, 200, gameSize);
+	reproduction(population, populationSize, gameSize, nbiteration, probacroisement);
 
 };
 
-function reproduction(population, populationSize, gameSize){
+function reproduction(population, populationSize, gameSize, nbiteration, probacroisement){
 	var values = [];
 	for (var i = 0; i < gameSize; i++) {
 		values[i] = i + 1;
@@ -275,9 +300,9 @@ function reproduction(population, populationSize, gameSize){
 	console.log("Fitness de la meilleur solution : ", bestSolution.score);
 
 
-	for (var i = 0; i < 200; i++) {
-		if(Math.random() < 0.8){
-			var selectedPopulation = SelectionTournoi(population);
+	for (var i = 0; i < nbiteration; i++) {
+		if(Math.random() < probacroisement){
+			var selectedPopulation = SelectionCroissante(population);
 			console.log("SelectionTournoi selectedPopulation", selectedPopulation)
 			population = croisement(selectedPopulation);
 			console.log("croisement, population", population)
@@ -290,6 +315,9 @@ function reproduction(population, populationSize, gameSize){
 		console.log("Meilleur solution : ", bestSolution);
 		console.log("Fitness de la meilleur solution : ", bestSolution.score);
 	}
+
+
+	$("#result-genetic").append("Meilleur fitness : ", bestSolution.score);
 
 
 }
@@ -320,6 +348,33 @@ function SelectionTournoi(population){
 	}
 
 	return newpopulation;
+}
+
+
+function SelectionCroissante(population){
+
+	var localpopulation = population.slice();
+	var size = localpopulation.length / 2;
+
+	var newpopulation = [];
+	for (var i = 0; i < size; i++) {
+		newpopulation[i] = getMinvalue(localpopulation);
+	}
+
+	return newpopulation;
+}
+
+function getMinvalue(array){
+	var min = array[0];
+	var minindex = 0;
+	for (var i = 0; i < array.length; i++) {
+		if(array[i] < min){
+			min = array[i];
+			minindex = i;
+		}
+	}
+	array.splice(minindex, 1);
+	return min;
 }
 
 
@@ -378,7 +433,6 @@ function getBestSolution(population){
 			bestPopulation = population[i];
 		}
 	}
-
 	return bestPopulation;
 }
 

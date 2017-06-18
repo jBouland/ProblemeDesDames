@@ -80,3 +80,16 @@ table {
   background-color: #ededed;
   border-radius: 10px;
 }
+
+.resultats{
+  margin-top: 100px;
+}
+
+.resultats h1{
+  font-size: 2.2em;
+  margin-bottom: 40px;
+}
+.resultats h2{
+  font-size: 2em;
+  margin-top: 70px;
+}

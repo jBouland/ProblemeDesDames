@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html>
 <head>
 	<meta charset="utf-8">
@@ -8,71 +7,72 @@
 	<script src="app.js"></script>
 	<script src="node_modules/jquery/dist/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
 	<div>
-		<h1>Projet - Problème des n-dames  <img class="imgQueen" src="images/queen.jpg"> </h1>
+		<h1>Projet - Problème des n-dames  
+			<img class="imgQueen" src="images/queen.jpg"> 
+		</h1>
 		<br/>	
 		<p>Ce projet propose de résoudre le problème des n-dames en utilisant différents algorithmes tels que le recuit simulé, la méthode de la liste tabou et l'algorithme génétique.
 			<br/>
-			Le problème des n-dames consiste à placer n dames sur un échiquier de taille NxN sans qu'aucune dame n'en menace une autre, en suivant les règles de menaces des échecs.</p>
-
-
-			<p>
-				<img class="imgWarning" src="images/warning.png"> 
-				Nous recommandons d'utiliser Google Chrome pour tester les échiquiers de taille importante. Les résultats des tests sont lisibles dans la console javascript de votre navigateur.
-			</p>	
-
-			<h3>Situation initiale</h3>
-
-			<p>Pour résoudre ce problème, nous avons décidé de placer par défaut une dame sur chaque colonne en suivant la diagonale selon le modèle suivant. </p>
-
-			<table class="exempleTable">
-						<tr>
-							<td><img class="smallPicture" src="images/queenLogo.png"/></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><img class="smallPicture" src="images/queenLogo.png"/></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td><img class="smallPicture" src="images/queenLogo.png"/></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td><img class="smallPicture" src="images/queenLogo.png"/></td>
-						</tr>
-					</table>
-
-					<p>On applique ensuite l'algorithme voulu avec les paramètres définis.</p>
-					<h4>Modélisation du problème : </h4>
-					<p>Une solution est définie comme une liste de numéro de colonne pour chaque dame. Chaque dame est représentée par son index. L'échiquier précédent correspond par exemple à la solution [0, 1, 2, 3].</p>
-					<h4>Calcul de la fitness : </h4>
-			<p>La fitness est calculée de la manière suivante :</p>
-			<div class="codeZone">				
-				<p class="tab1">Pour chaque dame :</p>
-				<p class="tab2">Pour chaque dame non explorée à la boucle 1 :</p>
-				<p class="tab3">Si il y a un conflit : Ajouter 1 à la fitness </p>
-				<p class="tab2">Fin pour</p>
-				<p class="tab1">Fin pour</p>
-			</div>
-			<p> L'échiquier précédent par exemple a une fitness de 6. (3 + 2 + 1)</p>
-			<br/>
-			<h4>Voisinage : </h4>
-			<p>Le voisin d'une solution est définie comme une permutation du numéro de colonne entre deux dames. </p>
-			<p>Par exemple, pour l'échiquier précédent représenté par la solution [0, 1, 2, 3] : <br/>[1, 0, 2, 3] est une solution, [0,3, 2, 1] également. <br/>[1, 3, 2, 0] n'en est pas un.</p>
+			Le problème des n-dames consiste à placer n dames sur un échiquier de taille NxN sans qu'aucune dame n'en menace une autre, en suivant les règles de menaces des échecs.
+		</p>
+		<p> Nous avons fait le choix de développer ce projet dans un environnement technique web en utilisant <strong>Javascript</strong>
+		</p>
+		<p>
+			<img class="imgWarning" src="images/warning.png"> 
+			Nous recommandons d'utiliser Google Chrome pour tester les échiquiers de taille importante. Des résultats plus complets des tests sont lisibles dans la console javascript de votre navigateur.
+		</p>
+		<h3>Situation initiale</h3>
+		<p>Pour résoudre ce problème, nous avons décidé de placer par défaut une dame sur chaque colonne en suivant la diagonale selon le modèle suivant. </p>
+		<table class="exempleTable">
+			<tr>
+				<td><img class="smallPicture" src="images/queenLogo.png"/></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><img class="smallPicture" src="images/queenLogo.png"/></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td><img class="smallPicture" src="images/queenLogo.png"/></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><img class="smallPicture" src="images/queenLogo.png"/></td>
+			</tr>
+		</table>
+		<p>On applique ensuite l'algorithme voulu avec les paramètres définis.</p>
+		<h4>Modélisation du problème : </h4>
+		<p>Une solution est définie comme une liste de numéro de colonne pour chaque dame. Chaque dame est représentée par son index. L'échiquier précédent correspond par exemple à la solution [0, 1, 2, 3].</p>
+		<h4>Calcul de la fitness : </h4>
+		<p>La fitness est calculée de la manière suivante :</p>
+		<div class="codeZone">
+			<p class="tab1">Pour chaque dame :</p>
+			<p class="tab2">Pour chaque dame non explorée à la boucle 1 :</p>
+			<p class="tab3">Si il y a un conflit : Ajouter 1 à la fitness </p>
+			<p class="tab2">Fin pour</p>
+			<p class="tab1">Fin pour</p>
 		</div>
+		<p> L'échiquier précédent par exemple a une fitness de 6. (3 + 2 + 1)</p>
+		<br/>
+		<h4>Voisinage : </h4>
+		<p>Le voisin d'une solution est définie comme une permutation du numéro de colonne entre deux dames. </p>
+		<p>Par exemple, pour l'échiquier précédent représenté par la solution [0, 1, 2, 3] : <br/>[1, 0, 2, 3] est une solution, [0,3, 2, 1] également. <br/>[1, 3, 2, 0] n'en est pas un.</p>
+	</div>
+	<div class="resultats">
+		<h1>Tester les algorithmes</h1>
 		<div class="paramGlobaux">
 			<h3>Nombre de dames</h3>
 		</div>
@@ -95,188 +95,200 @@
 				<br/>
 				<button onclick="callAlgoRecuitSimule()">Recuit simulé</button> 
 			</div>
-						<div class="result">Résultat : <span id="result-recuit"></span></div>
+			<div class="result">Résultat : <span id="result-recuit"></span></div>
 			<div>
 				<h4>Explications : </h4>
 				<p>La méthode recuit simulé consiste à choisir la meilleure solution dans le voisinage de la solution actuelle pour améliorer la fitness progressivement. <br>
-
-				La température est le paramètre qui va définir l'écart de fitness accepté entre 2 solutions, ainsi elle permet de pouvoir explorer des solutions plus "lointaines" afin de ne pas se retrouver bloquer dans un minimum local.<br>
-
-				n2 est le nombre d'itérations de changement de colonnes pour la même température d'entrée.
-				n1 est le nombre de changement de température qui sera fait. Ce changement se fait en multipliant la température par le paramètre micron.<br>
-
-				Ainsi si l'on a 200 en n1 et 300 en n2. Alors on effectue 300 itérations pour 200 températures ayant évolués.<br>
-
-
-
-				la complexité du calcul de fitness d'une solution est de l'ordre de log(n). Ainsi la complexité de tout l'algorithme est de n1*n2*log(n)
-				Lorsqu'on augmente la taille de l'échiquier, la durée de l'algorithme augmente donc de manière logarithmique.<br>
-				Parfois il arrive que le recuit simulé trouve une solution optimale (fitness = 0) assez rapidement, dans ce cas, il s'arrète</p></div>
-
-
-					<table class="resultTable">
-						<tr>
-							<th>taille échiquier</th>
-							<th>Temperature</th>
-							<th>n1</th>
-							<th>n2</th>
-							<th>Micron</th>
-							<th>Fitness moyenne trouvée</th>
-							<th>Pourcentage de réussite</th>
-							<th>Durée moyenne</th>
-							<th>Nombre d'itérations moyen</th>
-						</tr>
-						<tr>
-							<td>8</td>
-							<td>10</td>
-							<td>50</td>
-							<td>50</td>
-							<td>0.93</td>
-							<td>0</td>
-							<td>100 %</td>
-							<td>~1ms</td>
-							<td>très variant (parfois ~50, d'autres ~3 000)</td>
-						</tr>
-						<tr>
-							<td>50</td>
-							<td>200</td>
-							<td>100</td>
-							<td>100</td>
-							<td>0.5</td>
-							<td>18</td>
-							<td>30 %</td>
-							<td>~35ms</td>
-							<td>~25 000</td>
-						</tr>
-						<tr>
-							<td>50</td>
-							<td>200</td>
-							<td>100</td>
-							<td>100</td>
-							<td>0.8</td>
-							<td>0</td>
-							<td>100 %</td>
-							<td>~35ms</td>
-							<td>~25 000</td>
-						</tr>
-						<tr>
-							<td>100</td>
-							<td>200</td>
-							<td>100</td>
-							<td>100</td>
-							<td>0.9</td>
-							<td>1</td>
-							<td>40 %</td>
-							<td>~125ms</td>
-							<td>~25 000</td>
-						</tr>
-						<tr>
-							<td>100</td>
-							<td>200</td>
-							<td>130</td>
-							<td>100</td>
-							<td>0.9</td>
-							<td>0.1</td>
-							<td>90 %</td>
-							<td>~140ms</td>
-							<td>~30 000</td>
-						</tr>
-						<tr>
-							<td>200</td>
-							<td>500</td>
-							<td>200</td>
-							<td>200</td>
-							<td>0.9</td>
-							<td>0</td>
-							<td>100%</td>
-							<td>~1 seconde</td>
-							<td>~40 000</td>
-						</tr>
-						<tr>
-							<td>500</td>
-							<td>5000</td>
-							<td>250</td>
-							<td>300</td>
-							<td>0.92</td>
-							<td>0.1</td>
-							<td>70%</td>
-							<td>~18 secondes</td>
-							<td>~72 600</td>
-						</tr>
-					</table>
-				</div>
-
-
+					La température est le paramètre qui va définir l'écart de fitness accepté entre 2 solutions, ainsi elle permet de pouvoir explorer des solutions plus "lointaines" afin de ne pas se retrouver bloquer dans un minimum local.<br>
+					n2 est le nombre d'itérations de changement de colonnes pour la même température d'entrée.
+					n1 est le nombre de changement de température qui sera fait. Ce changement se fait en multipliant la température par le paramètre micron.<br>
+					Ainsi si l'on a 200 en n1 et 300 en n2. Alors on effectue 300 itérations pour 200 températures ayant évolués.<br>
+					la complexité du calcul de fitness d'une solution est de l'ordre de log(n). Ainsi la complexité de tout l'algorithme est de n1*n2*log(n)
+					Lorsqu'on augmente la taille de l'échiquier, la durée de l'algorithme augmente donc de manière logarithmique.<br>
+					Parfois il arrive que le recuit simulé trouve une solution optimale (fitness = 0) assez rapidement, dans ce cas, il s'arrète
+				</p>
+			</div>
+			<table class="resultTable">
+				<tr>
+					<th>taille échiquier</th>
+					<th>Temperature</th>
+					<th>n1</th>
+					<th>n2</th>
+					<th>Micron</th>
+					<th>Fitness moyenne trouvée</th>
+					<th>Pourcentage de réussite</th>
+					<th>Durée moyenne</th>
+					<th>Nombre d'itérations moyen</th>
+				</tr>
+				<tr>
+					<td><strong>8</strong></td>
+					<td>10</td>
+					<td>50</td>
+					<td>50</td>
+					<td>0.93</td>
+					<td>0</td>
+					<td>100 %</td>
+					<td>~1ms</td>
+					<td>très variant (parfois ~50, d'autres ~3 000)</td>
+				</tr>
+				<tr>
+					<td>50</td>
+					<td>200</td>
+					<td>100</td>
+					<td>100</td>
+					<td><strong>0.5</strong></td>
+					<td>18</td>
+					<td>30 %</td>
+					<td>~35ms</td>
+					<td>~25 000</td>
+				</tr>
+				<tr>
+					<td>50</td>
+					<td>200</td>
+					<td>100</td>
+					<td>100</td>
+					<td><strong>0.8</strong></td>
+					<td>0</td>
+					<td>100 %</td>
+					<td>~35ms</td>
+					<td>~25 000</td>
+				</tr>
+				<tr>
+					<td>100</td>
+					<td>200</td>
+					<td><strong>100</strong></td>
+					<td>100</td>
+					<td>0.9</td>
+					<td>1</td>
+					<td>40 %</td>
+					<td>~125ms</td>
+					<td>~25 000</td>
+				</tr>
+				<tr>
+					<td>100</td>
+					<td>200</td>
+					<td><strong>130</strong></td>
+					<td>100</td>
+					<td>0.9</td>
+					<td>0.1</td>
+					<td>90 %</td>
+					<td>~140ms</td>
+					<td>~30 000</td>
+				</tr>
+				<tr>
+					<td><strong>200</strong></td>
+					<td>500</td>
+					<td>200</td>
+					<td>200</td>
+					<td>0.9</td>
+					<td>0</td>
+					<td>100%</td>
+					<td>~1 seconde</td>
+					<td>~40 000</td>
+				</tr>
+				<tr>
+					<td><strong>500</strong></td>
+					<td>5000</td>
+					<td>250</td>
+					<td>300</td>
+					<td>0.92</td>
+					<td>0.3</td>
+					<td>70%</td>
+					<td>~18 secondes</td>
+					<td>~72 600</td>
+				</tr>
+			</table>
 		</div>
-
 		<div class="algoArea">
-			<h3>Méthode Tabou</h3>
+			<h2>Méthode Tabou</h2>
 			<div class="param">
 				Taille de la liste Tabou
 				<input type="number" id="tabooSize">
 				<br/>
 				<button onclick="callAlgoTaboo()">Tabou</button>
 			</div>
-			<div class="result">Résultat : <span id="resultTaboo"></span></div>
+			<div class="result">Résultat : <span id="result-taboo"></span></div>
 			<div>
 				<h4>Explications : </h4>
 				<p>La méthode liste taboue consiste à choisir la meilleure solution dans le voisinage de la solution actuelle pour améliorer la fitness progressivement. Elle implémente une liste de solutions "taboues", qui évitent de retourner sur des solutions déjà visitées. <br/> 
 					Pour ce problème, on défini une solution voisine comme une solution qui demande une seule permutation de dames. Malheuresement, la méthode de la liste taboue n'est pas adaptée à la résolution de ce problème. En effet, la complexité du calcul de fitness d'une solution est de l'ordre de n*log(n) pour chaque dame. La recherche du meilleur voisin est donc d'une complexité de <b>n² *  log(n)</b>, et ceux, à chaque itération de l'algorithme. 
 					Lorsqu'on augmente la taille de l'échiquier, la durée de l'algorithme augmente donc de manière exponentielle.<br>
-					Pour éviter ce problème et obtenir un résultat dans un temps acceptable, nous avons limité le choix du meilleur voisin à un échantillon réduit pour les tailles d'échiquier les plus importantes.</p></div>
-					<table class="resultTable">
-						<tr>
-							<th>Paramètres (taille échiquier/taille liste taboue)</th>
-							<th>Fitness trouvée</th>
-							<th>Durée</th>
-							<th>Itérations</th>
-						</tr>
-						<tr>
-							<td>10/10</td>
-							<td>0</td>
-							<td>5.86ms</td>
-							<td>22</td>
-						</tr>
-						<tr>
-							<td>50/10</td>
-							<td>0</td>
-							<td>40.43ms</td>
-							<td>173</td>
-						</tr>
-						<tr>
-							<td>50/0</td>
-							<td>0</td>
-							<td>56.65ms</td>
-							<td>287</td>
-						</tr>
-						<tr>
-							<td>100/10</td>
-							<td>1</td>
-							<td>3.26s</td>
-							<td>5000 (cap atteint)</td>
-						</tr>
-						<tr>
-							<td>200/10</td>
-							<td>5</td>
-							<td>12.61s</td>
-							<td>5000 (cap atteint)</td>
-						</tr>
-						<tr>
-							<td>500/10</td>
-							<td>16</td>
-							<td>80s</td>
-							<td>5000 (cap atteint)</td>
-						</tr>
-					</table>
-				</div>
-
-				<div class="algoArea">
-					<h3>Méthode génétique</h3>
-					<div class="param">
-					</div>
-					<button onclick="algoGenetique()">Génétique</button>
-				</div>		
+					Pour éviter ce problème et obtenir un résultat dans un temps acceptable, nous avons limité le choix du meilleur voisin à un échantillon réduit pour les tailles d'échiquier les plus importantes.
+				</p>
+			</div>
+			<table class="resultTable">
+				<tr>
+					<th>Paramètres (taille échiquier/taille liste taboue)</th>
+					<th>Fitness trouvée</th>
+					<th>Durée</th>
+					<th>Itérations</th>
+				</tr>
+				<tr>
+					<td>10/10</td>
+					<td>0</td>
+					<td>5.86ms</td>
+					<td>22</td>
+				</tr>
+				<tr>
+					<td>50/10</td>
+					<td>0</td>
+					<td>40.43ms</td>
+					<td>173</td>
+				</tr>
+				<tr>
+					<td>50/0</td>
+					<td>0</td>
+					<td>56.65ms</td>
+					<td>287</td>
+				</tr>
+				<tr>
+					<td>100/10</td>
+					<td>1</td>
+					<td>3.26s</td>
+					<td>5000 (cap atteint)</td>
+				</tr>
+				<tr>
+					<td>200/10</td>
+					<td>5</td>
+					<td>12.61s</td>
+					<td>5000 (cap atteint)</td>
+				</tr>
+				<tr>
+					<td>500/10</td>
+					<td>16</td>
+					<td>80s</td>
+					<td>5000 (cap atteint)</td>
+				</tr>
+			</table>
+		</div>
+		<div class="algoArea">
+			<h2>Méthode génétique</h2>
+			<div class="param">
+				t : Taille de la population (pair)
+				<input type="number" id="population" value="500">
 				<br/>
-			</body>
-
-			</html>
+				p : probabilité d'effectuer un croisement (entre 0 et 1)
+				<input type="decimal" id="croisement" value="0.9">
+				<br/>
+				n : nombre d'itérations
+				<input type="number" id="nbiteration" value="300">
+				<br/>
+				<br/>
+				<button onclick="callAlgoGenetique()">Génétique</button> 
+			</div>
+			<div class="result">Résultat : <span id="result-genetic"></span></div>
+			<div>
+				<h4>Explications : </h4>
+				<p>
+					L'algorithme génétique génère aléatoirement dans un premier temps une population de taille t. Cette population étant donc un ensemble de solutions différentes. On procède ensuite à une évaluation de cette population. On calcul donc pour chaque solution sa fitness. Ensuite on sélectionne les meilleurs individus via une sélection par tournois (laissant un facteur aléatoire).
+					La sélection étant faite, on peut maintenant procéder à deux opérations. Soit un croisement soit une mutation. 
+					Le croisement consiste à combiner une solution à partir de 2 solutions sélectionnées. 
+					La mutation consiste à modifier une solution en changeant de place une reine.
+					On réitère ses étapes n fois. La sélection permet de garantir la qualité des solutions, et les croisements/mutations permettent l'évolution de la population.
+				</p>
+			</div>
+		</div>
+		<br/>
+	</div>
+</body>
+</html>
