@@ -112,6 +112,7 @@ function getFitness(_data){
 	return fitness;
 }
 
+
 function updateFitness(_data, _fitness, index_1, value_1, index_2, value_2){
 	var fitness = _fitness;
 	for (var j = index_1 + 1; j < _data.length; j++) {
@@ -143,7 +144,7 @@ function updateFitness(_data, _fitness, index_1, value_1, index_2, value_2){
 		console.timeEnd('algoTaboo');
 	};
 
-function algoTaboo(nbPermut){
+	function algoTaboo(nbPermut){
 	//TEST
 	nbPermut = 5000;
 	//
@@ -251,79 +252,141 @@ function callAlgoGenetique(){
 };
 
 function algoGenetique(){
-	var populationSize = $("#population").val();
+	var gameSize = $("#size").val()
+	console.log("size : ", gameSize);
 	var population = [];
 
-	reproduction(population, populationSize);
+	reproduction(population, 200, gameSize);
 
 };
 
-function reproduction(population, populationSizea){
+function reproduction(population, populationSize, gameSize){
 	var values = [];
-	for (var i = 0; i < populationSize; i++) {
+	for (var i = 0; i < gameSize; i++) {
 		values[i] = i + 1;
 	}
 
 	for (var i = 0; i < populationSize ; i++) {
 		population[i] = generateRandomBoard(values.slice());
 		population[i].score = getFitness(population[i]);
-		console.log("score de la population " + i + " : " + population[i].score);
+	}
+	var bestSolution = getBestSolution(population);
+	console.log("Meilleur solution : ", bestSolution);
+	console.log("Fitness de la meilleur solution : ", bestSolution.score);
+
+
+	for (var i = 0; i < 200; i++) {
+		if(Math.random() < 0.8){
+			var selectedPopulation = SelectionTournoi(population);
+			console.log("SelectionTournoi selectedPopulation", selectedPopulation)
+			population = croisement(selectedPopulation);
+			console.log("croisement, population", population)
+		}
+		else{
+			population = mutation(population);
+			console.log("mutation, population", population)
+		}
+		bestSolution = getBestSolution(population);
+		console.log("Meilleur solution : ", bestSolution);
+		console.log("Fitness de la meilleur solution : ", bestSolution.score);
 	}
 
-	newPopulation = Selection(population);
 
+}
 
+function SelectionTournoi(population){
 
-	if(Math.random() < 0.9){
-		croisement(population);
+	var localpopulation = population.slice();
+
+	var newpopulation = [];
+	for (var i = 0; localpopulation.length != 0; i++) {
+		var first = Math.floor((Math.random() * localpopulation.length)); 
+		var second= Math.floor((Math.random() * localpopulation.length)); 
+		while(second == first){
+			var second= Math.floor((Math.random() * localpopulation.length)); 
+		}
+		var firstSolution = localpopulation[first];
+		var secondSolution = localpopulation[second];
+
+		if(firstSolution.score > secondSolution.score){
+			newpopulation[i] = secondSolution;
+		}
+		else{
+			newpopulation[i] = firstSolution;
+		}
+
+		localpopulation.splice(localpopulation.indexOf(firstSolution), 1);
+		localpopulation.splice(localpopulation.indexOf(secondSolution), 1);
 	}
-	else{
-		mutation(population);
-	}
+
+	return newpopulation;
 }
 
 
 function generateRandomBoard(values){
 
 	var data=[];
+	size = values.length;
 
 	for (var i = 0; i < size; i++) {
 		var elementIndex = Math.floor(Math.random()* values.length);
 		data[i] = values[elementIndex];
 		values.splice(elementIndex, 1);
+
 	}
-	return data[i];
+	return data;
 
 };
 
 function croisement(population){
-	var firstrand = Math.floor((Math.random() * population.length)); 
-	var secondrand= Math.floor((Math.random() * population.length)); 
-	while(secondCol == firstCol){
-		var secondCol= Math.floor((Math.random() * population.length)); 
+
+	newpopulation = [];
+
+	for (var i = 0; i < population.length; i++) {
+		if(i == population.length - 1 && population.length % 2 == 1){ // Si on choppe le dernier qui est tout seul (car nb impair)
+			newpopulation[i] = population[i];
+			break;
+		}
+		newpopulation[i] = [];
+		newpopulation[i + 1] = [];
+		for(var j = 0; j < population[i].length; j++){
+			if(j < population[i].length / 2){
+				newpopulation[i][j] = population[i][j];
+				newpopulation[i + 1][j] = population[i + 1][j];
+			}
+			else{
+				newpopulation[i][j] = population[i + 1][j];
+				newpopulation[i + 1][j] = population[i][j];
+			}
+		}
+		newpopulation[i].score = getFitness(newpopulation[i]);
+		newpopulation[i + 1].score = getFitness(newpopulation[i + 1]);
+		i++;
 	}
 
-	data = [];
+	return newpopulation.concat(population);
 
-	for(var i = size/4; i < size / 4 * 3; i++){
-		data[i] = population[firstrand][i];
-	}
 
-	var i = 0
-	for(var j = 0; j < size /4; i++){
-		if(!data.contains( population[firstrand][i])){
-			data[i] = population[firstrand][i];
-			j++;
+}
+
+function getBestSolution(population){
+	var bestScore = population[0].score + 1;
+	var bestPopulation = null;
+	for (var i = 0; i < population.length; i++) {
+		if(population[i].score < bestScore){
+			bestScore = population[i].score;
+			bestPopulation = population[i];
 		}
 	}
 
+	return bestPopulation;
+}
 
-	var j = size / 4 * 3;
-	for(i ; j < size; i++){
-		if(!data.contains( population[firstrand][i])){
-			data[i] = population[firstrand][i];
-			j++;
-		}
-	}
-	return data;
+function mutation(population){
+
+	var indexpopulation = Math.floor((Math.random() * population.length)); 
+	var indexdame = Math.floor((Math.random() * population[indexpopulation].length)); 
+	population[indexpopulation][indexdame] = Math.floor((Math.random() * population[indexpopulation].length)); 
+
+	return population;
 }
