@@ -260,16 +260,16 @@ function bestRandomVoisinTaboo(data, taboo){
 
 function callAlgoGenetique(){
 
-		$("#result-genetic").empty();
+	$("#result-genetic").empty();
 
-		var start = performance.now();
+	var start = performance.now();
 
-		algoGenetique(); 
+	algoGenetique(); 
 
-		var end = performance.now();
+	var end = performance.now();
 
-		var time = end - start;
-		$("#result-genetic").append(" Temps d'execution : "+time.toFixed(1) + "ms");
+	var time = end - start;
+	$("#result-genetic").append(" Temps d'execution : "+time.toFixed(1) + "ms");
 
 };
 
@@ -296,30 +296,41 @@ function reproduction(population, populationSize, gameSize, nbiteration, probacr
 		population[i].score = getFitness(population[i]);
 	}
 	var bestSolution = getBestSolution(population);
-	console.log("Meilleur solution : ", bestSolution);
-	console.log("Fitness de la meilleur solution : ", bestSolution.score);
-
+	var population = EvaluationPopulation(population);
 
 	for (var i = 0; i < nbiteration; i++) {
 		if(Math.random() < probacroisement){
-			var selectedPopulation = SelectionCroissante(population);
-			console.log("SelectionTournoi selectedPopulation", selectedPopulation)
+			var selectedPopulation = SelectionTournoi(population);
+			//console.log("SelectionTournoi selectedPopulation", selectedPopulation)
 			population = croisement(selectedPopulation);
-			console.log("croisement, population", population)
+			//console.log("croisement, population", population)
 		}
 		else{
 			population = mutation(population);
-			console.log("mutation, population", population)
+			//console.log("mutation, population", population)
 		}
+		population = EvaluationPopulation(population);
 		bestSolution = getBestSolution(population);
+		console.log(i+"/"+nbiteration);
 		console.log("Meilleur solution : ", bestSolution);
 		console.log("Fitness de la meilleur solution : ", bestSolution.score);
+
+		if(bestSolution == 0){
+			break;
+		}
 	}
 
 
 	$("#result-genetic").append("Meilleur fitness : ", bestSolution.score);
 
 
+}
+
+function EvaluationPopulation(population){
+	for (var i = 0; i < population.length; i++) {
+		population[i].score = getFitness(population[i]);
+	}
+	return population;
 }
 
 function SelectionTournoi(population){
@@ -354,13 +365,12 @@ function SelectionTournoi(population){
 function SelectionCroissante(population){
 
 	var localpopulation = population.slice();
-	var size = localpopulation.length / 2;
+	var size = population.length / 2;
 
 	var newpopulation = [];
 	for (var i = 0; i < size; i++) {
 		newpopulation[i] = getMinvalue(localpopulation);
 	}
-
 	return newpopulation;
 }
 
@@ -368,7 +378,7 @@ function getMinvalue(array){
 	var min = array[0];
 	var minindex = 0;
 	for (var i = 0; i < array.length; i++) {
-		if(array[i] < min){
+		if(array[i].score < min){
 			min = array[i];
 			minindex = i;
 		}
@@ -414,8 +424,6 @@ function croisement(population){
 				newpopulation[i + 1][j] = population[i][j];
 			}
 		}
-		newpopulation[i].score = getFitness(newpopulation[i]);
-		newpopulation[i + 1].score = getFitness(newpopulation[i + 1]);
 		i++;
 	}
 

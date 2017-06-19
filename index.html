@@ -198,6 +198,10 @@
 					<td>~72 600</td>
 				</tr>
 			</table>
+				<h4>Interprétation des résutlats : </h4>				
+				<p>Les résultats sont plutot satisfaisants. Trouver une solution à tous les coups est possible si l'on trouve les bons paramètres, et le coût en temps est relativement faible. On constate que si la valeur de n1 n'est pas assez élevée, alors on peut se retrouver dans un minimum local empechant l'algorithme de tester d'itérer avec des températures différentes. Avoir une température qui converge vers 0 semble être une bonne approche pour pouvoir trouver une solution. Néanmoins celle-ci ne doit pas converger trop vite afin d'éviter d'être "piéger" dans un minimum local.
+				</p>
+
 		</div>
 		<div class="algoArea">
 			<h2>Méthode Tabou</h2>
@@ -259,19 +263,25 @@
 					<td>80s</td>
 					<td>5000 (cap atteint)</td>
 				</tr>
-			</table>
+			</table>				
+			<h4>Interprétation des résutlats : </h4>				
+				<p>Les résultats sont moins bons qu'avec le recuit simulé.
+				Trouver une solution est faisable lorsque le nombre de dames n'est pas élevé. 
+				Au delà de 100 dames, l'algorithme ne trouve pas la solution en moins de 5000 itérations.
+				La complexité étant plus élevé qu'avec le recuit, le temps d'execution croît plus rapidement en fonction du nombre de dames.
+				</p>
 		</div>
 		<div class="algoArea">
 			<h2>Méthode génétique</h2>
 			<div class="param">
 				t : Taille de la population (pair)
-				<input type="number" id="population" value="500">
+				<input type="number" id="population" value="50">
 				<br/>
 				p : probabilité d'effectuer un croisement (entre 0 et 1)
 				<input type="decimal" id="croisement" value="0.9">
 				<br/>
 				n : nombre d'itérations
-				<input type="number" id="nbiteration" value="300">
+				<input type="number" id="nbiteration" value="30000">
 				<br/>
 				<br/>
 				<button onclick="callAlgoGenetique()">Génétique</button> 
@@ -287,6 +297,52 @@
 					On réitère ses étapes n fois. La sélection permet de garantir la qualité des solutions, et les croisements/mutations permettent l'évolution de la population.
 				</p>
 			</div>
+			<table class="resultTable">
+				<tr>
+					<th>Nombre de dames</th>
+					<th>Taille de la population</th>
+					<th>probabilité de croisement</th>
+					<th>Nombre d'itérations</th>
+					<th>Meilleur Fitness</th>
+					<th>Temps d'execution</th>
+				</tr>
+				<tr>
+					<td>20</td>
+					<td>50</td>
+					<td>0.9</td>
+					<td>30 000</td>
+					<td>0</td>
+					<td>28 secondes</td>
+				</tr>
+				<tr>
+					<td>200</td>
+					<td>50</td>
+					<td>0.9</td>
+					<td>30 000</td>
+					<td>35</td>
+					<td>135 secondes</td>
+				</tr>
+				<tr>
+					<td>200</td>
+					<td>50</td>
+					<td>0.7</td>
+					<td>30 000</td>
+					<td>20</td>
+					<td>135 secondes</td>
+				</tr>
+				<tr>
+					<td>200</td>
+					<td>50</td>
+					<td>0.1</td>
+					<td>30 000</td>
+					<td>14</td>
+					<td>155 secondes</td>
+				</tr>
+			</table>		
+			<h4>Interprétation des résutlats : </h4>				
+				<p>Les résultats sont déçevants. Cela s'explique par le fait que la façon dont nous avons modéliser le problème (en modélisant seulement les colonnes). Pour les algorithmes précédents nous avions toujours une reine par colonne. En effectuant des croisements, on peut se retrouver avec des colonnes sans dames, et donc être sûr d'avoir un résultat de faible qualité. Néanmoins on arrive tout de même à avoir une population qui devient meilleur au fil des mutations. On remarque que si la probabilité de mutations est élevée, alors les résultats sont meilleurs.
+				La taille de la population semble impacter beaucoup plus sur le temps de calcul que sur la qualité des résultats.
+				</p>
 		</div>
 		<br/>
 	</div>
