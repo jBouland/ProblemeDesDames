@@ -52,7 +52,8 @@ function algoRecuitSimule(){
 				i = n1;
 			}
 		}
-		//console.log(i + " Nouvelle temperature ! : " + micron*temperature + "au lieu de "+ temperature)
+		console.log("n1 = " +i + " Nouvelle temperature ! : " + micron*temperature + "au lieu de "+ temperature)
+		console.log("Meilleur Solution actuelle :", bestFitness);
 		temperature = micron*temperature;
 	}
 	// console.log("Solution Trouvée : ");
